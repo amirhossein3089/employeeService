@@ -1,5 +1,7 @@
 const hostname = '127.0.0.1';
-const port = 3000;
+const port = 81;
+const { Connection } = require('./db.js')
+Connection.connectToMongo();
 
 const server = require('./controller.js');
 

@@ -1,29 +1,23 @@
-const mongodb = require("mongodb");
-const MongoClient = mongodb.MongoClient;
-const connectionURL = "mongodb://127.0.0.1:27017";
-const databaseName = "employeeService";
+const MongoClient = require('mongodb').MongoClient
 
-let callback, db;
-
-MongoClient.connect(
-  connectionURL,
-  { useNewUrlParser: true },
-  (error, client) => {
-    if (error) {
-      return console.log("Unable to connect to database!");
+class Connection {
+    static connectToMongo() {
+        if ( this.db ) return Promise.resolve(this.db)
+        return MongoClient.connect(this.url, this.options)
+            .then(
+            db => {this.db = db.db('MongoDb')
+            console.log('db id connected')}
+          )
+            .catch(
+              err=>console.log('errorS')
+            )
     }
-    const db = client.db(databaseName);
-    // Start to interact with the database
+}
 
-    db = client.db(dbName);
-    callback(db);
-  }
-);
+Connection.db = null
+Connection.url = 'mongodb://127.0.0.1:27017/MongoDb'
+Connection.options = {
+    useNewUrlParser: true
+}
 
-module.exports = function(cb) {
-  if (typeof db != "undefined") {
-    cb(db);
-  } else {
-    callback = cb;
-  }
-};
+module.exports = { Connection }
