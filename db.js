@@ -9,7 +9,7 @@ class Connection {
             console.log('db id connected')}
           )
             .catch(
-              err=>console.log('errorS')
+              err=>console.log('error connecting to database')
             )
     }
 }

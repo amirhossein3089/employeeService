@@ -82,7 +82,7 @@ exports.addEmployee = function(req, res) {
     .catch(error =>{
        res.statusCode = 400;
         res.setHeader("Content-Type", "application/json");
-        res.end(error);
+        res.end(error.message);
     })
   })
 };
